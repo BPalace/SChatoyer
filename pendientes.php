@@ -20,11 +20,8 @@
 
 	<script>
 		$(document).ready(function(){
-			$('#mitabla').DataTable({
-				
-
-			});
-		});
+			$('#mitabla','#utabla').DataTable({});
+	});
 	</script>
 </head>
 <body>
@@ -36,11 +33,13 @@
 	</div>
 	
 	<br>
-	<div class="row table-responsive" id="tabla1" >
+	<div class="row table-responsive" id="Varios" >
+		<h3 style="text-align: center">QUIMICOS E INMUNOLOGICOS</h3>
+
 		<table class="display" id="mitabla">
 		<thead>
 		<tr>
-		<th>ID_ORDEN</th>
+		<th>N#ORDEN</th>
 		<th>PACIENTE</th>
 		<th>EXAMEN</th>
 		<th>VALIDADO</th>
@@ -63,7 +62,65 @@
 		</tbody>
 		</table>
 	</div>
+	<div class="row table-responsive" id="Uroanalisis" >
+		<h3 style="text-align: center">UROANALISIS</h3>
+		<table class="display" id="utabla">
+		<thead>
+		<tr>
+		<th>N#ORDEN</th>
+		<th>N#ANALISIS</th>
+		<th>PACIENTE</th>
+		<th>VALIDADO</th>
+		<th></th>
+		<th></th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php $consulta=uroPendientes()?>
+			<?php while($row = $consulta->fetch_array(MYSQLI_ASSOC)) {  ?>
+			<tr>
+				<td><?php echo $row['tbl_Orden_IdOrden']; ?></td>
+				<td><?php echo $row['IdUroanalisis']; ?></td>
+				<td><?php echo $row['PACIENTE']; ?></td>
+				<td><?php echo $row['Validado']; ?></td>
+				<td><a href="reportar.php?id=<?php echo $row['IdUroanalisis']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdUroanalisis']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+				<td></td>
+			</tr>
+		<?php } ?>
+		</tbody>
+		</table>
+	</div>
 
+	<div class="row table-responsive" id="Parasitologia" >
+		<h3 style="text-align: center">Parasitologia</h3>
+		<table class="display" id="ptabla">
+		<thead>
+		<tr>
+		<th>N#ORDEN</th>
+		<th>N#ANALISIS</th>
+		<th>PACIENTE</th>
+		<th>VALIDADO</th>
+		<th></th>
+		<th></th>
+		</tr>
+		</thead>
+		<tbody>
+			<?php $consulta=parasitoPendientes()?>
+			<?php while($row = $consulta->fetch_array(MYSQLI_ASSOC)) {  ?>
+			<tr>
+				<td><?php echo $row['tbl_Orden_IdOrden']; ?></td>
+				<td><?php echo $row['IdParasitologia']; ?></td>
+				<td><?php echo $row['PACIENTE']; ?></td>
+				<td><?php echo $row['Validado']; ?></td>
+				<td><a href="reportar.php?id=<?php echo $row['IdParasitologia']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdParasitologia']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+				<td></td>
+			</tr>
+		<?php } ?>
+		</tbody>
+		</table>
+	</div>
 	
 	</div>
 
@@ -96,19 +153,6 @@
 				$('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
 			});
 		</script>
-		<!--Mostrar y ocultar tablas-->
-		<script>
-		function mostrarOcultarTablas(id){
-		mostrado=0;
-		elem = document.getElementById(id);
-		if(elem.style.display=='block')mostrado=1;
-		elem.style.display='none';
-		if(mostrado!=1)elem.style.display='block';
-		}
-		</script>
-
-		<a href="javascript:mostrarOcultarTablas('tabla1')">Mostrar tabla 1</a>
-		<a href="javascript:mostrarOcultarTablas('tabla2')">Mostrar tabla 2</a>
 				
 	<div class="container">
 		<div class="row" align="center">

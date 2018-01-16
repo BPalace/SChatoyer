@@ -20,10 +20,10 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<h3 style="text-align:center">MODIFICAR REGISTRO DE  PACIENTE</h3>
+				<h3 style="text-align:center">Reportar Examen</h3>
 			</div>
 			
-			<form class="form-horizontal" method="POST" action="update.php" autocomplete="off">
+			<form class="form-horizontal" method="POST" action="upExamen.php" autocomplete="off">
 				<div class="form-group">   
 					<label for="nombres" class="col-sm-2 control-label">Nombres</label>
 					<div class="col-sm-10">
