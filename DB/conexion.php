@@ -14,7 +14,8 @@ printf("Servidor Information: %s\n ", $mysqli->server_info);
 function pendientes(){
 	global $mysqli, $consulta;
 	$sql="SELECT 
-		t1.IdOrden, 
+		t1.IdOrden,
+		t1.IdExamen,  
 		CONCAT(t3.Nombres,' ',t3.Apellidos)AS PACIENTE, 
 		t4.Nombre, 
 		t1.Validado  

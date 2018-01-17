@@ -1,9 +1,10 @@
 <?php
-	require 'conexion.php';
+	require 'DB/conexion.php';
 	
 	$id = $_GET['id'];
+	$id2 = $_GET['id2'];
 
-	$sql= "SELECT * FROM tbl_Paciente WHERE IdPaciente= '$id'";
+	$sql= "SELECT * FROM examenes WHERE IdOrden= '$id' and IdExamen= '$id2'";
 	$resultado = $mysqli->query($sql);
 	$row= $resultado->fetch_array(MYSQL_ASSOC);
 ?>
@@ -20,10 +21,10 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<h3 style="text-align:center">Reportar Examen</h3>
+				<h3 style="text-align:center">MODIFICAR REGISTRO DE  PACIENTE</h3>
 			</div>
 			
-			<form class="form-horizontal" method="POST" action="upExamen.php" autocomplete="off">
+			<form class="form-horizontal" method="POST" action="update.php" autocomplete="off">
 				<div class="form-group">   
 					<label for="nombres" class="col-sm-2 control-label">Nombres</label>
 					<div class="col-sm-10">

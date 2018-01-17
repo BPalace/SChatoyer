@@ -20,7 +20,7 @@
 
 	<script>
 		$(document).ready(function(){
-			$('#mitabla','#utabla').DataTable({});
+			$('table.display').DataTable();
 	});
 	</script>
 </head>
@@ -36,7 +36,7 @@
 	<div class="row table-responsive" id="Varios" >
 		<h3 style="text-align: center">QUIMICOS E INMUNOLOGICOS</h3>
 
-		<table class="display" id="mitabla">
+		<table class="display dataTable" id="tabla">
 		<thead>
 		<tr>
 		<th>N#ORDEN</th>
@@ -51,10 +51,11 @@
 			<?php while($row = $consulta->fetch_array(MYSQLI_ASSOC)) {  ?>
 			<tr>
 				<td><?php echo $row['IdOrden']; ?></td>
+				<input type="hidden" id="id2" name="id" value="<?php echo $row['IdExamen']; ?>"/>
 				<td><?php echo $row['PACIENTE']; ?></td>
 				<td><?php echo $row['Nombre']; ?></td>
 				<td><?php echo $row['Validado']; ?></td>
-				<td><a href="reportar.php?id=<?php echo $row['IdOrden']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="reportar.php?id=<?php echo $row['IdOrden']; ?>&&id2=<?php echo $row['IdExamen']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdOrden']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 				<td></td>
 			</tr>
@@ -64,7 +65,7 @@
 	</div>
 	<div class="row table-responsive" id="Uroanalisis" >
 		<h3 style="text-align: center">UROANALISIS</h3>
-		<table class="display" id="utabla">
+		<table class="display dataTable" id="utabla">
 		<thead>
 		<tr>
 		<th>N#ORDEN</th>
@@ -83,7 +84,7 @@
 				<td><?php echo $row['IdUroanalisis']; ?></td>
 				<td><?php echo $row['PACIENTE']; ?></td>
 				<td><?php echo $row['Validado']; ?></td>
-				<td><a href="reportar.php?id=<?php echo $row['IdUroanalisis']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="reportarUroanalisis.php?id=<?php echo $row['IdUroanalisis']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdUroanalisis']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 				<td></td>
 			</tr>
@@ -94,7 +95,7 @@
 
 	<div class="row table-responsive" id="Parasitologia" >
 		<h3 style="text-align: center">Parasitologia</h3>
-		<table class="display" id="ptabla">
+		<table class="display dataTable" id="ptabla">
 		<thead>
 		<tr>
 		<th>N#ORDEN</th>
@@ -113,7 +114,7 @@
 				<td><?php echo $row['IdParasitologia']; ?></td>
 				<td><?php echo $row['PACIENTE']; ?></td>
 				<td><?php echo $row['Validado']; ?></td>
-				<td><a href="reportar.php?id=<?php echo $row['IdParasitologia']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="reportarParasitologia.php?id=<?php echo $row['IdParasitologia']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdParasitologia']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 				<td></td>
 			</tr>
