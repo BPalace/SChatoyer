@@ -4,7 +4,10 @@
 	$id = $_GET['id'];
 	$id2 = $_GET['id2'];
 
-	$sql= "SELECT * FROM examenes WHERE IdOrden= '$id' and IdExamen= '$id2'";
+	$sql= "SELECT t1.IdOrden, t1.IdExamen, t3.Nombres, t3.Apellidos, (YEAR(CURRENT_DATE)-YEAR(t3.FechaNac))as Edad, t4.Nombre, t1.Resultado, t4.Unidades, t4.ValRef, t1.Validado FROM examenes t1 
+INNER JOIN tbl_orden t2 on t1.IdOrden=t2.IdOrden
+INNER JOIN tbl_paciente t3 on t2.IdPaciente=t3.IdPaciente
+INNER join tbl_examenes t4 on t1.IdExamen=t4.IdExamen WHERE t1.IdOrden='$id' and t1.IdExamen= '$id2' ";
 	$resultado = $mysqli->query($sql);
 	$row= $resultado->fetch_array(MYSQL_ASSOC);
 ?>
@@ -21,67 +24,44 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<h3 style="text-align:center">MODIFICAR REGISTRO DE  PACIENTE</h3>
+				<h3 style="text-align:center">MODIFICAR RESULTADO</h3>
 			</div>
 			
-			<form class="form-horizontal" method="POST" action="update.php" autocomplete="off">
-				<div class="form-group">   
-					<label for="nombres" class="col-sm-2 control-label">Nombres</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres" value="<?php echo $row['Nombres']; ?>"  required>
-					</div>
+			<form class="form-horizontal" method="POST" action="actualizarResultados.php" autocomplete="off">
+				<input type="hidden" id="ido" name="ido" value="<?php echo $row['IdOrden']; ?>"/>
+				<input type="hidden" id="ide" name="ide" value="<?php echo $row['IdExamen']; ?>"/>
+				<div>
+					<fieldset>
+						<legend>Datos del Paciente</legend>
+						Nombres:<label><?php echo $row['Nombres']; ?></label>
+						Apellidos:<label><?php echo $row['Apellidos']; ?></label>
+						Edad:<label><?php echo $row['Edad']; ?></label>
+					</fieldset>
 				</div>
-
-				<input type="hidden" id="id" name="id" value="<?php echo $row['IdPaciente']; ?>"/>
-				
-				<div class="form-group">
-					<label for="apellido" class="col-sm-2 control-label">Apellidos</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" value="<?php echo $row['Apellidos']; ?>" required>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="Nacimiento" class="col-sm-2 control-label">Fecha de Nacimiento</label>
-					<div class="col-sm-10">
-						<input type="date" class="form-control" id="nacimiento" name="nacimiento" placeholder="Nacimietno" value="<?php echo $row['FechaNac']; ?>" required>
-					</div>
+				<div>
+					<fieldset>
+						<legend>Resultados</legend>
+						Examen:<label><?php echo $row['Nombre']; ?></label>
+						Resultado:<input type="text" id="result" name="result" placeholder="Resultado" value="<?php echo $row['Resultado']; ?>"  required>
+						Unidades:<label><?php echo $row['Unidades']; ?></label>
+						Valores de Referencia:<label><?php echo $row['ValRef']; ?></label>
+					</fieldset>
 				</div>
 				
 				<div class="form-group">
-					<label for="sexo" class="col-sm-2 control-label">Sexo</label>
+					<label for="sexo" class="col-sm-2 control-label">Validacion</label>
 					
 					<div class="col-sm-10">
 						<label class="radio-inline">
-							<input type="radio" id="sexo" name="sexo" value="M" <?php if ($row['Sexo'] == 'M') echo 'checked'?>> MAsculino
+							<input type="radio" id="valid" name="valid" value="1" <?php if ($row['Validado'] == '1') echo 'checked'?>> Si
 						</label>
 						
 						<label class="radio-inline">
-							<input type="radio" id="sexo" name="sexo" value="F" <?php if ($row['Sexo'] == 'F') echo 'checked'?>> Femenino
+							<input type="radio" id="valid" name="valid" value="0" <?php if ($row['Validado'] == '0') echo 'checked'?>> NO
 						</label>
 					</div>
 				</div>
 				
-				<div class="form-group">
-					<label for="telefono" class="col-sm-2 control-label">Telefono</label>
-					<div class="col-sm-10">
-						<input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="<?php echo $row['Celular']; ?>">
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="email" class="col-sm-2 control-label">Email</label>
-					<div class="col-sm-10">
-						<input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $row['Correo']; ?>" required>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="direccion" class="col-sm-2 control-label">Direccion</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" value="<?php echo $row['Direccion']; ?>" required>
-					</div>
-				</div>
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">

@@ -28,7 +28,7 @@
 	<div class="container">
 	<div class="row">
 
-	<h2 style="text-align :center">EXAMENES PENDIENTES</h2>
+	<h2 style="text-align :center">EXAMENES de la orden</h2>
 
 	</div>
 	
@@ -44,6 +44,7 @@
 		<th>EXAMEN</th>
 		<th>VALIDADO</th>
 		<th></th>
+		<th></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -55,6 +56,8 @@
 				<td><?php echo $row['Nombre']; ?></td>
 				<td><?php echo $row['Validado']; ?></td>
 				<td><a href="reportar.php?id=<?php echo $row['IdOrden']; ?>&&id2=<?php echo $row['IdExamen']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdOrden']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+				<td></td>
 			</tr>
 		<?php } ?>
 		</tbody>
@@ -82,6 +85,7 @@
 				<td><?php echo $row['PACIENTE']; ?></td>
 				<td><?php echo $row['Validado']; ?></td>
 				<td><a class="btn btn-primary" href="reportarUroanalisis.php?id=<?php echo $row['IdUroanalisis']; ?>">Reportar!</a></td>
+				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdUroanalisis']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 				<td></td>
 			</tr>
 		<?php } ?>
@@ -111,6 +115,7 @@
 				<td><?php echo $row['PACIENTE']; ?></td>
 				<td><?php echo $row['Validado']; ?></td>
 				<td><a href="reportarParasitologia.php?id=<?php echo $row['IdParasitologia']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdParasitologia']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 				<td></td>
 			</tr>
 		<?php } ?>
