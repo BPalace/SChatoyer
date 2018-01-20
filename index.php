@@ -69,7 +69,7 @@
 				<td><?php echo $row['Celular']; ?></td>
 				<td><?php echo $row['Correo']; ?></td>
 				<td><?php echo $row['Direccion']; ?></td>
-				<td><a href="modificar.php?id=<?php echo $row['IdPaciente']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				<td><a href="generaorden.php?id=<?php echo $row['IdPaciente']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
 				<td><a href="#" data-href="eliminar.php?id=<?php echo $row['IdPaciente']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
 				<td></td>
 			</tr>

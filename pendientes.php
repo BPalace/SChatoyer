@@ -77,7 +77,7 @@
 			<?php $consulta=uroPendientes()?>
 			<?php while($row = $consulta->fetch_array(MYSQLI_ASSOC)) {  ?>
 			<tr>
-				<td><?php echo $row['tbl_Orden_IdOrden']; ?></td>
+				<td><?php echo $row['IdOrden']; ?></td>
 				<td><?php echo $row['IdUroanalisis']; ?></td>
 				<td><?php echo $row['PACIENTE']; ?></td>
 				<td><?php echo $row['Validado']; ?></td>

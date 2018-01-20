@@ -26,6 +26,17 @@ function pendientes(){
 		INNER JOIN tbl_examenes t4 on t1.IdExamen=t4.IdExamen where Validado=0";
 	return $mysqli->query($sql);
 }
+function pruebas(){
+	global $mysqli, $consulta;
+	$sql="SELECT * FROM tbl_examenes";
+	return $mysqli->query($sql);
+}
+function pacienteOrden($id){
+	global $mysqli, $consulta;
+	$sql= "SELECT Nombres, Apellidos, Sexo, Celular, (YEAR(CURRENT_DATE)-YEAR(FechaNac))as Edad 
+	FROM tbl_paciente WHERE IdPaciente='$id'";
+	return $mysqli->query($sql);
+}
 function pacientes(){
 	global $mysqli, $consulta;
 	$sql="SELECT * FROM tbl_Paciente";
@@ -33,8 +44,8 @@ function pacientes(){
 }
 function uroPendientes(){
 	global $mysqli, $consulta;
-	$sql="SELECT t1.tbl_Orden_IdOrden, t1.IdUroanalisis, CONCAT(t3.Nombres,' ',t3.Apellidos) as PACIENTE, t1.Validado FROM tbl_uroanalisis t1 
-	INNER JOIN tbl_orden t2 on t1.tbl_Orden_IdOrden=t2.IdOrden
+	$sql="SELECT t1.IdOrden, t1.IdUroanalisis, CONCAT(t3.Nombres,' ',t3.Apellidos) as PACIENTE, t1.Validado FROM tbl_uroanalisis t1 
+	INNER JOIN tbl_orden t2 on t1.IdOrden=t2.IdOrden
 	INNER JOIN tbl_paciente t3 on t2.IdPaciente=t3.IdPaciente WHERE Validado=0;";
 	return $mysqli->query($sql);
 }

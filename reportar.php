@@ -4,7 +4,7 @@
 	$id = $_GET['id'];
 	$id2 = $_GET['id2'];
 
-	$sql= "SELECT t1.IdOrden, t1.IdExamen, t3.Nombres, t3.Apellidos, (YEAR(CURRENT_DATE)-YEAR(t3.FechaNac))as Edad, t4.Nombre, t1.Resultado, t4.Unidades, t4.ValRef, t1.Validado FROM examenes t1 
+	$sql= "SELECT t1.IdOrden, t1.IdExamen, t3.Nombres, t3.Apellidos, t3.Sexo, t3.Celular, (YEAR(CURRENT_DATE)-YEAR(t3.FechaNac))as Edad, t4.Nombre, t1.Resultado, t4.Unidades, t4.ValRef, t1.Validado FROM examenes t1 
 INNER JOIN tbl_orden t2 on t1.IdOrden=t2.IdOrden
 INNER JOIN tbl_paciente t3 on t2.IdPaciente=t3.IdPaciente
 INNER join tbl_examenes t4 on t1.IdExamen=t4.IdExamen WHERE t1.IdOrden='$id' and t1.IdExamen= '$id2' ";
@@ -33,18 +33,56 @@ INNER join tbl_examenes t4 on t1.IdExamen=t4.IdExamen WHERE t1.IdOrden='$id' and
 				<div>
 					<fieldset>
 						<legend>Datos del Paciente</legend>
-						Nombres:<label><?php echo $row['Nombres']; ?></label>
-						Apellidos:<label><?php echo $row['Apellidos']; ?></label>
-						Edad:<label><?php echo $row['Edad']; ?></label>
+					
+						<div class="row table-responsive">
+							<table class="table table-striped" id="mitabla">
+								<thead>
+								<tr>
+								<th>NOMBRES</th>
+								<th>APELLIDOS</th>
+								<th>Edad</th>
+								<th>SEXO</th>
+								<th>CELULAR</th>
+								</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><?php echo $row['Nombres']; ?></td>
+										<td><?php echo $row['Apellidos']; ?></td>
+										<td><?php echo $row['Edad']; ?></td>
+										<td><?php echo $row['Sexo']; ?></td>
+										<td><?php echo $row['Celular']; ?></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</fieldset>
+					
 				</div>
 				<div>
 					<fieldset>
-						<legend>Resultados</legend>
-						Examen:<label><?php echo $row['Nombre']; ?></label>
-						Resultado:<input type="text" id="result" name="result" placeholder="Resultado" value="<?php echo $row['Resultado']; ?>"  required>
-						Unidades:<label><?php echo $row['Unidades']; ?></label>
-						Valores de Referencia:<label><?php echo $row['ValRef']; ?></label>
+						<legend>Resultado</legend>
+					
+						<div class="row table-responsive">
+							<table class="table table-striped" id="mitabla">
+								<thead>
+								<tr>
+								<th>EXAMEN</th>
+								<th>RESULTADDO</th>
+								<th>UNIDADES</th>
+								<th>VALORES DE REFERENCIA</th>
+								</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><?php echo $row['Nombre']; ?></td>
+										<td><input type="text" id="result" name="result" placeholder="Resultado" value="<?php echo $row['Resultado']; ?>"  required></td>
+										<td><?php echo $row['Unidades']; ?></td>
+										<td><?php echo $row['ValRef']; ?></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</fieldset>
 				</div>
 				

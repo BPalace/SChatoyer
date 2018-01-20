@@ -1,6 +1,6 @@
 <?php
 
-	require 'conexion.php';
+	require 'DB/conexion.php';
 
 	$nombres= $_POST['nombres'];
 	$apellidos= $_POST['apellidos'];
