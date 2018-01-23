@@ -3,23 +3,6 @@
 	
 	$id = $_GET['id'];
 
-	$intereses = isset($_POST['intereses']) ? $_POST['intereses'] : null;
-	
-	$arrayIntereses = null;
-	
-	$num_array = count($intereses);
-	$contador = 0;
-	
-	if($num_array>0){
-		foreach ($intereses as $key => $value) {
-			if ($contador != $num_array-1){
-			$arrayIntereses .= $value.' ';
-			$contador++;
-			} else {
-			$arrayIntereses .= $value;
-			}
-		}
-	}
 	$consulta=pacienteOrden($id);
 
 	$row= $consulta->fetch_array(MYSQL_ASSOC);
@@ -30,14 +13,17 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/bootstrap-theme.css" rel="stylesheet">
 		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
-		<script src="js/jquery-3.1.1.min.js"></script>
-		<script src="js/jquery.dataTables.min.js" ></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script>
 		$(document).ready(function(){
-			$('table.display').DataTable();
+			$('#extabla').DataTable(
+
+				);
 		});
-	</script>
+		</script>
+		
 	</head>
 	
 	<body>
@@ -45,9 +31,11 @@
 			<div class="row">
 				<h3 style="text-align:center">GENERAR ORDEN DE EXAMENES</h3>
 			</div>
+			<form class="form-horizontal" method="POST" action="guardarOrden.php" autocomplete="off">
 			<fieldset>
 				<legend>Datos del Paciente</legend>
 					<div class="row table-responsive">
+						<input type="hidden" id="id" name="id" value="<?php echo $row['IdPaciente']; ?>"/>
 						<table class="table table-striped" id="mitabla">
 							<thead>
 							<tr>
@@ -70,91 +58,37 @@
 						</table>
 					</div>
 			</fieldset>
-					
-			<div class="form-group">
-				<table class="table table-striped">
-					<?php
-					$consulta=pruebas();
-					while($row = $consulta->fetch_array(MYSQLI_ASSOC)) {  
-					?>
-					<tr>
-						<td><?php echo $row['IdExamen']; ?></td>
-						<td><?php echo $row['Nombre']; ?></td>
-						<td><?php echo $row['tbl_TipoExamen_IdTipo']; ?></td>
-						<td><label class="radio radio-inline">
-							<input type="radio" id="add" name="add" value="M"> Agregar
-						</label>
-						
-						<label class="radio-inline">
-							<input type="radio" id="add" name="add" value="F" checked> Quitar
-						</label></td>
-						<td></td>
-					</tr>
-					<?php } ?>
-					<tr>
-						<td>
-							<div class="list-group">
-							  <a href="#" id= class="list-group-item"><?php echo $row['Nombre']; ?></a>
-							  <a href="#" class="list-group-item" >Second item</a>
-							  <a href="#" class="list-group-item">Third item</a>
-							</div>
-						</td>
-					</tr>
-				</table>
-					<label for="intereses" class="col-sm-2 control-label">Generales</label>
-					
-					<div class="col-sm-10">
-						<label class="checkbox-inline">
-							<input type="checkbox" id="intereses[]" name="intereses[]" value="Libros"> Libros
-						</label>
-						
-						<label class="checkbox-inline">
-							<input type="checkbox" id="intereses[]" name="intereses[]" value="Musica"> Musica
-						</label>
-						
-						<label class="checkbox-inline">
-							<input type="checkbox" id="intereses[]" name="intereses[]" value="Deportes"> Deportes
-						</label>
-						
-						<label class="checkbox-inline">
-							<input type="checkbox" id="intereses[]" name="intereses[]" value="Otros"> Otros
-						</label>
-					</div>
 			
-			<div class="row table-responsive" id="Uroanalisis" >
+			<div class="row table-responsive">
 				<h3 style="text-align: center">Examenes</h3>
-				<table class="display dataTable" id="utabla">
+				<table id="extabla" class="display DataTable">
 				<thead>
 				<tr>
-				<th>Id Examne</th>
 				<th>Nombre Examen</th>
-				<th>Tipo Examen/th>
+				<th>Tipo Examen</th>
 				<th>Agregar</th>
-				<th></th>
 				</tr>
 				</thead>
 				<tbody>
-					<?php while($row = $consulta->fetch_array(MYSQLI_ASSOC)) {  ?>
+					<?php
+							$consulta=pruebas();
+							while($row = $consulta->fetch_array(MYSQLI_ASSOC)) {  
+					?>
 					<tr>
-						<td><?php echo $row['IdExamen']; ?></td>
 						<td><?php echo $row['Nombre']; ?></td>
-						<td><?php echo $row['tbl_TipoExamen_IdTipo']; ?></td>
-						<td><label class="radio-inline">
-							<input type="radio" id="add" name="add" value="M"> Agregar
-						</label>
-						
-						<label class="radio-inline">
-							<input type="radio" id="add" name="add" value="F" checked> Quitar
-						</label></td>
-						<td></td>
+						<td><?php echo $row['NombreTipo']; ?></td>
+						<td>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="pruebas[]" name="pruebas[]" value="<?php echo $row['IdExamen']; ?>">Agregar
+							</label>
+						</td>
 					</tr>
 				<?php } ?>
 				</tbody>
 				</table>
 			</div>
-				
-				
-				
+		
+					
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<a href="index.php" class="btn btn-default">Regresar</a>

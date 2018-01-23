@@ -28,12 +28,13 @@ function pendientes(){
 }
 function pruebas(){
 	global $mysqli, $consulta;
-	$sql="SELECT * FROM tbl_examenes";
+	$sql="SELECT t1.IdExamen, t1.Nombre, t2.NombreTipo  
+FROM tbl_examenes t1 INNER JOIN tbl_tipoexamen t2 ON t1.tbl_TipoExamen_IdTipo=t2.IdTipo";
 	return $mysqli->query($sql);
 }
 function pacienteOrden($id){
 	global $mysqli, $consulta;
-	$sql= "SELECT Nombres, Apellidos, Sexo, Celular, (YEAR(CURRENT_DATE)-YEAR(FechaNac))as Edad 
+	$sql= "SELECT IdPaciente, Nombres, Apellidos, Sexo, Celular, (YEAR(CURRENT_DATE)-YEAR(FechaNac))as Edad 
 	FROM tbl_paciente WHERE IdPaciente='$id'";
 	return $mysqli->query($sql);
 }
